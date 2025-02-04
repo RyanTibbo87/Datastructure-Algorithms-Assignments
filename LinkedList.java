@@ -37,4 +37,68 @@ class LinkedList {
         }
         temp.next = null; // Remove the last node
     }
+     // Method to delete a node at a specific position
+    public void deleteAtPosition(int position) {
+        if (head == null) {
+            System.out.println("The list is empty. Nothing to delete.");
+            return;
+        }
+        if (position == 0) { // If deleting the first node
+            deleteAtBeginning();
+            return;
+        }
+        Node temp = head;
+        for (int i = 0; i < position - 1; i++) { // Traverse to the node before the target node
+            if (temp.next == null) {
+                System.out.println("Position out of bounds.");
+                return;
+            }
+            temp = temp.next;
+        }
+        if (temp.next == null) {
+            System.out.println("Position out of bounds.");
+            return;
+        }
+        temp.next = temp.next.next; // Remove the target node
+    }
+
+    // Method to display the linked list
+    public void display() {
+        if (head == null) {
+            System.out.println("The list is empty.");
+            return;
+        }
+        Node temp = head;
+        while (temp != null) {
+            System.out.print(temp.data + " -> ");
+            temp = temp.next;
+        }
+        System.out.println("null");
+    }
+
+    // Main method
+    public static void main(String[] args) {
+        LinkedList list = new LinkedList();
+
+        // Adding some nodes to the list
+        list.head = new Node(1);
+        list.head.next = new Node(2);
+        list.head.next.next = new Node(3);
+        list.head.next.next.next = new Node(4);
+
+        System.out.println("Original list:");
+        list.display();
+
+        System.out.println("\nDeleting at the beginning:");
+        list.deleteAtBeginning();
+        list.display();
+
+        System.out.println("\nDeleting at the end:");
+        list.deleteAtEnd();
+        list.display();
+
+        System.out.println("\nDeleting at position 1:");
+        list.deleteAtPosition(1);
+        list.display();
+    }
 }
